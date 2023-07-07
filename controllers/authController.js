@@ -4,7 +4,14 @@ const User = require("../models/userModel");
 
 // Register a new user
 const registerUser = async (req, res) => {
-  const { email, password, name } = req.body;
+  const { email, password, name, confirmPassword } = req.body;
+  if (password !== confirmPassword) {
+    return res.json({
+      status: "error",
+      message: "Passwords do not match",
+    });
+  }
+
   if (!email || !password) {
     return res.json({
       status: "error",
