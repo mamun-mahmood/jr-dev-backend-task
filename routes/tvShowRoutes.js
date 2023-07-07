@@ -7,7 +7,7 @@ const router = express.Router();
 router.get("/", tvShowController.getAllTVShows);
 
 // Get a single TV show by ID
-router.get("/:tvShowId", tvShowController.getTVShowById);
+router.get("/:id", tvShowController.getTVShowById);
 
 //  Add a new TV show (for admin role only)
 router.post("/add-new", authMiddleware, tvShowController.addTVShow);

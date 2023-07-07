@@ -3,7 +3,7 @@ const TVShow = require("../models/tvShowModel");
 // Get all TV shows with pagination
 const getAllTVShows = async (req, res) => {
   try {
-    const { page = 1, limit = 10 } = req.query;
+    const { page, limit } = req.query;
 
     // Calculate the skip value for pagination
     const skip = (page - 1) * limit;
