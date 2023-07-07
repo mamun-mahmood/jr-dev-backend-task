@@ -5,6 +5,7 @@ require("dotenv").config();
 const authRoutes = require("./routes/authRoutes");
 const authMiddleware = require("./middlewares/authMiddleware");
 const movieRoutes = require("./routes/movieRoutes");
+const tvShowRoutes = require("./routes/tvShowRoutes");
 // Set up Express app
 const app = express();
 
@@ -32,6 +33,8 @@ app.get("/", (req, res) => {
 // Routes
 app.use("/auth", authRoutes);
 app.use("/movies", movieRoutes);
+app.use("/tv-shows", tvShowRoutes);
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err);
