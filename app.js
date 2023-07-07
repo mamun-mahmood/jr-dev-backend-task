@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 require("dotenv").config();
 const authRoutes = require("./routes/authRoutes");
 const authMiddleware = require("./middlewares/authMiddleware");
+const movieRoutes = require("./routes/movieRoutes");
 // Set up Express app
 const app = express();
 
@@ -23,11 +24,14 @@ mongoose
     console.error("Error connecting to MongoDB:", error);
   });
 // Default route
-app.get("/", authMiddleware, (req, res) => {
+app.get("/", (req, res) => {
   res.send("Welcome to Movie/TV-show the API");
 });
+// middleware
+// app.use(authMiddleware);
 // Routes
 app.use("/auth", authRoutes);
+app.use("/movies", movieRoutes);
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err);
