@@ -23,9 +23,10 @@ const registerUser = async (req, res) => {
       name,
       email,
       password,
+      // role: "admin",
     });
     const token = jwt.sign(
-      { email: user.email, id: user._id },
+      { email: user.email, id: user._id, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
@@ -72,7 +73,7 @@ const loginUser = async (req, res) => {
       });
     }
     const token = jwt.sign(
-      { email: user.email, id: user._id },
+      { email: user.email, id: user._id, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );

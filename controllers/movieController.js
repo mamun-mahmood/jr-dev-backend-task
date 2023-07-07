@@ -41,5 +41,45 @@ const getMovieById = async (req, res) => {
       .json({ message: "An error occurred while fetching the movie" });
   }
 };
+const addMovie = async (req, res) => {
+  try {
+    // Check if the user has admin role
+    if (req?.user?.role !== "admin") {
+      return res.status(403).json({ message: "Only admins can add movies" });
+    }
 
-module.exports = { getAllMovies, getMovieById };
+    const {
+      title,
+      runtime,
+      actors,
+      director,
+      producer,
+      releaseDate,
+      posterImage,
+    } = req.body;
+
+    // Create a new movie
+    const newMovie = new Movie({
+      title,
+      runtime,
+      actors,
+      director,
+      producer,
+      releaseDate,
+      posterImage,
+    });
+
+    // Save the new movie
+    await newMovie.save();
+
+    res
+      .status(201)
+      .json({ message: "Movie added successfully", movie: newMovie });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ message: "An error occurred while adding the movie" });
+  }
+};
+module.exports = { getAllMovies, getMovieById, addMovie };
