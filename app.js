@@ -34,7 +34,7 @@ app.get("/", (req, res) => {
 app.use("/auth", authRoutes);
 app.use("/movies", movieRoutes);
 app.use("/tv-shows", tvShowRoutes);
-
+app.use("/reviews", require("./routes/reviewRoutes"));
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err);
