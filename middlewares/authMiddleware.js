@@ -15,7 +15,7 @@ const authMiddleware = (req, res, next) => {
 
     // Attach the decoded user data to the request object
     req.userData = { userId: decodedToken.id, email: decodedToken.email };
-    req.user = { role: decodedToken.role };
+    req.user = { role: decodedToken.role, id: decodedToken.id };
     // Proceed to the next middleware or route handler
     next();
   } catch (error) {

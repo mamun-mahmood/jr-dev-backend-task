@@ -29,12 +29,12 @@ app.get("/", (req, res) => {
   res.send("Welcome to Movie/TV-show the API");
 });
 // middleware
-// app.use(authMiddleware);
+
 // Routes
 app.use("/auth", authRoutes);
-app.use("/movies", movieRoutes);
-app.use("/tv-shows", tvShowRoutes);
-app.use("/reviews", require("./routes/reviewRoutes"));
+app.use("/movies", authMiddleware, movieRoutes);
+app.use("/tv-shows", authMiddleware, tvShowRoutes);
+app.use("/reviews", authMiddleware, require("./routes/reviewRoutes"));
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err);

@@ -16,8 +16,8 @@ const addReview = async (req, res) => {
 
     // Create a new review
     const newReview = new Review({
-      user: req.user._id,
-      movieOrTVShow: movieOrTVShow._id,
+      user: req.user.id,
+      movieOrTVShowId: movieOrTVShow._id,
       onModel: movieOrTVShow instanceof Movie ? "Movie" : "TVShow",
       rating,
       reviewContent,
@@ -40,7 +40,7 @@ const addReview = async (req, res) => {
 // Get all reviews for a specific movie or TV show
 const getReviewsByMovieOrTVShow = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { id } = req.query;
     // Check if the movie or TV show exists
     const movieOrTVShow =
       (await Movie.findById(id)) || (await TVShow.findById(id));
@@ -50,7 +50,7 @@ const getReviewsByMovieOrTVShow = async (req, res) => {
 
     // Get all reviews for the movie or TV show
     const reviews = await Review.find({ movieOrTVShow: movieOrTVShow._id })
-      .populate("user", "username")
+      .populate("user", "_id name email")
       .exec();
 
     res.status(200).json({ reviews });
